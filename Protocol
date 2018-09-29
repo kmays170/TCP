@@ -1,0 +1,8 @@
+Project submission need to include the application protocol, including
+o Type of messages
+o The syntax and semantics of each message type, including
+▪ The format of the messages
+▪ The meaning of each field in the format
+▪ The value range of each field
+o Rules of sending messages (i.e. which message should be sent by which end (client or
+server) under what circumstance)
