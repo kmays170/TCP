@@ -25,8 +25,25 @@ int main(){
 
 	int client_socket;
 	client_socket = accept(server_socket, NULL, NULL);
+	if (client_socket < 0)
+		error("Error with the accept");
+	//new code
+	FILE *f;
+	char buffer[255];
+	int count = 0;
+	f = fopen("received_file.txt", "w");
+	int word_count;
+	read(client_socket, &word_count, sizeof(int));
+	while (count != word_count)
+	{
+		read(client_socket, buffer, 255);
+		fprintf(f, "%s", buffer);
+		count++;
+	}
+	printf("file received, saved under received_file.txt");
 	
-	send(client_socket, server_message, sizeof(server_message), 0);
+	// end of new code
+	//send(client_socket, server_message, sizeof(server_message), 0);
 
 	close(server_socket);
 
