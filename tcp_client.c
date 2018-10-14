@@ -3,8 +3,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-
-// code from Socket Programming Tutorial
+#include <ctype.h>
 
 int main(){
 	int network_socket;
@@ -22,8 +21,30 @@ int main(){
 	}
 	char server_response[256];
 	recv(network_socket, &server_response, sizeof(server_response), 0);
-	
-	printf("The server sent the data: %s\n", server_response);
+
+	// new code
+	char buffer[255];
+	FILE *rfile;
+	int words = 0;
+	char c;
+	rfile = fopen("practice.txt", "r");
+	while ((c = getc(rfile)) != EOF)
+	{
+		fscanf(rfile, "%s", buffer);
+		if (isspace(c) || c == '\t')
+			words++;
+	}
+	write(network_socket, &words, sizeof(int));
+	rewind(rfile);
+	char check;
+	while (check != EOF)
+	{
+		fscanf(rfile, "%s", buffer);
+		write(network_socket, buffer, 255);
+		check = fgetc(rfile);
+	}
+	//end of new code
+	printf("The server successfully sent the data\n", server_response);
 
 	close(network_socket);
 	return 0;
