@@ -28,10 +28,11 @@ int main(){
 	int words = 0;
 	char c;
 	rfile = fopen("practice.txt", "r");
+	//copies the text in the file with no spaces
 	while ((c = getc(rfile)) != EOF)
 	{
-		//fscanf(rfile, "%s", buffer);
-		if (isspace(c) || c == '\t')
+		fscanf(rfile, "%s", buffer);
+		if (!isspace(c) || c != '\t')
 			words++;
 	}
 	write(network_socket, &words, sizeof(int));
@@ -39,6 +40,7 @@ int main(){
 	char check;
 	while (check != EOF)
 	{
+		//printf(check);
 		fscanf(rfile, "%s", buffer);
 		write(network_socket, buffer, 255);
 		check = fgetc(rfile);
