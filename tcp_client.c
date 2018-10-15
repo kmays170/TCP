@@ -30,7 +30,7 @@ int main(){
 	rfile = fopen("practice.txt", "r");
 	while ((c = getc(rfile)) != EOF)
 	{
-		fscanf(rfile, "%s", buffer);
+		//fscanf(rfile, "%s", buffer);
 		if (isspace(c) || c == '\t')
 			words++;
 	}
