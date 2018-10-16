@@ -5,7 +5,14 @@
 #include <netinet/in.h>
 #include <ctype.h>
 
-int main(){
+int main(int argc, char *argv[]){
+	/*
+	argv[0] = server IP
+	argv[1] = server port
+	argv[2] = file path
+	argv[3] = to format
+	argv[4] = to name
+	*/
 	int network_socket;
 	network_socket = socket(AF_INET, SOCK_STREAM, 0);
 
