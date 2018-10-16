@@ -7,11 +7,11 @@
 
 int main(int argc, char *argv[]){
 	/*
-	argv[0] = server IP
-	argv[1] = server port
-	argv[2] = file path
-	argv[3] = to format
-	argv[4] = to name
+	argv[1] = server IP
+	argv[2] = server port
+	argv[3] = file path
+	argv[4] = to format
+	argv[5] = to name
 	*/
 	int network_socket;
 	network_socket = socket(AF_INET, SOCK_STREAM, 0);
