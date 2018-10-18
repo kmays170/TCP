@@ -1,7 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "helper.h"
-
 #include <sys/socket.h>
 #include <sys/types.h>
 
@@ -32,8 +30,14 @@ int main(){
 	*/
 	char server_message[256] = "You have reached the server!";
 	int server_socket;
-	server_socket = socket(AF_INET, SOCK_STREAM, 0);
 	int port = atoi(argv[1]);
+	server_socket = socket(AF_INET, SOCK_STREAM, 0);
+	//Socket creation check
+	if (server_socket < 0)
+	{
+		printf("Socket creation error\n");
+		exit(2);
+	}
 	//define the server address
 	struct sockaddr_in server_address;
 	server_address.sin_family = AF_INET;
@@ -44,17 +48,24 @@ int main(){
 
 	listen(server_socket, 10);
 
+	char to_file[255];
+	int index = 0;
 	int client_socket;
 	client_socket = accept(server_socket, NULL, NULL);
 	if (client_socket < 0)
 		error("Error with the accept");
+	//code for receiving the to_name argument from the client
+	recv(client_socket, to_file, sizeof(to_file), NULL);
+	char file_name[sizeof(to_file)];
+	strcpy(file_name, to_file);
+
 	//new code
 	FILE *f;
 	char buffer[255];
 	int count = 0;
 	int to_format = 1;
 	int convert;
-	f = fopen("received_file.txt", "w");
+	f = fopen(file_name, "w");
 	int word_count;
 	int letter_count = 0;
 	read(client_socket, &word_count, sizeof(int));
