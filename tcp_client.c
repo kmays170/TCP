@@ -50,13 +50,12 @@ int main(int argc, char *argv[]){
 	char check;
 	while (check != EOF) //while check is not a EOF character
 	{
-		//printf(check);
 		fscanf(rfile, "%s", buffer); //read in each character
 		write(network_socket, buffer, 255); //send the character to the server socket
 		check = fgetc(rfile); //retrieves the next character
 	}
 	//end of new code
-	printf("The server successfully sent the data\n", server_response); //lets the user know the data was ent
+	printf("The server successfully sent the data\n", server_response); //lets the user know the data was sent
 
 	close(network_socket); //close the socket
 	return 0;
