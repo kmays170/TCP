@@ -8,6 +8,24 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
+int Dec_to_Binary(int arg)
+{
+	int binary;
+	int remainder;
+	int quotient = arg;
+	char binary_string[255];
+	int index = 0;
+	while (quotient != 0)
+	{
+		quotient = quotient / 2;
+		remainder = quotient % 2;
+		//strcat(binary_string, ((char)remainder));
+		binary_string[index] = (char)remainder;
+		index++;
+	}
+	binary = (int)binary_string;
+	return binary;
+}
 int main(){
 	/*
 	argv[1] = port server is listening to
