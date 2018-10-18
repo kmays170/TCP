@@ -15,10 +15,12 @@ int main(int argc, char *argv[]){
 	*/
 	int network_socket;
 	network_socket = socket(AF_INET, SOCK_STREAM, 0);
-
+	int server_ip = inet_addr(argv[1]);
+	int server_port = atoi(argv[2]);
+	int to_format = atoi(argv[4]);
 	struct sockaddr_in server_address;
 	server_address.sin_family = AF_INET;
-	server_address.sin_port = htons(9002);
+	server_address.sin_port = htons(server_port);
 	server_address.sin_addr.s_addr = INADDR_ANY;
 	
 	int connection_status = connect(network_socket, (struct sockaddr *) &server_address, sizeof(server_address));
@@ -34,7 +36,7 @@ int main(int argc, char *argv[]){
 	FILE *rfile;
 	int words = 0;
 	char c;
-	rfile = fopen("practice.txt", "r");
+	rfile = fopen(argv[3], "r");
 	//copies the text in the file with no spaces
 	while ((c = getc(rfile)) != EOF)
 	{

@@ -9,10 +9,13 @@
 #include <unistd.h>
 
 int main(){
+	/*
+	argv[1] = port server is listening to
+	*/
 	char server_message[256] = "You have reached the server!";
 	int server_socket;
 	server_socket = socket(AF_INET, SOCK_STREAM, 0);
-
+	int port = atoi(argv[1]);
 	//define the server address
 	struct sockaddr_in server_address;
 	server_address.sin_family = AF_INET;
