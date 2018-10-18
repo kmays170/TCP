@@ -86,7 +86,7 @@ int main(){
 		letter_count = 0; //reset the letter count to 0
 		count++;// increment count
 	}
-	printf("file received"); //let the user know the file has been received
+	printf("file received, saved under %s\n", file_name ); //let the user know the file has been received
 	
 	// end of new code
 
