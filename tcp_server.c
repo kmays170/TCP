@@ -34,13 +34,22 @@ int main(){
 	FILE *f;
 	char buffer[255];
 	int count = 0;
+	int to_format = 1;
+	int convert;
 	f = fopen("received_file.txt", "w");
 	int word_count;
+	int letter_count = 0;
 	read(client_socket, &word_count, sizeof(int));
 	while (count != word_count)
 	{
 		read(client_socket, buffer, 255);
-		fprintf(f, "%s", buffer);
+		while (((int)buffer[letter_count]) != 0)
+		{
+			convert = (int)buffer[letter_count];
+			fprintf(f, "%d", convert);
+			letter_count++;
+		}
+		letter_count = 0;
 		count++;
 	}
 	printf("file received, saved under received_file.txt");
