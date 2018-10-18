@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -28,9 +29,10 @@ int main(int argc, char *argv[]){
 	if (connection_status == -1){
 		printf("There was an error creating the connection \n\n");
 	}
-	char server_response[256];
-	recv(network_socket, &server_response, sizeof(server_response), 0);
-
+	//code for sending the file name
+	char to_file[sizeof(argv[5])];
+	strcpy(to_file, argv[5]);
+	send(network_socket, to_file, sizeof(to_file), NULL);
 	// new code
 	char buffer[255];
 	FILE *rfile;
