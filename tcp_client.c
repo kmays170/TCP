@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
 	int to_format = atoi(argv[4]); //converts the to format string argument into an integer
 	struct sockaddr_in server_address;
 	server_address.sin_family = AF_INET;
-	server_address.sin_port = htons(server_port);
+	server_address.sin_port = htons(server_port); //network byte order is big endian
 	server_address.sin_addr.s_addr = inet_addr(argv[1]);//takes in the first argument as the IP address
 	
 	int connection_status = connect(network_socket, (struct sockaddr *) &server_address, sizeof(server_address)); //establishes connection
@@ -38,25 +38,30 @@ int main(int argc, char *argv[]){
 	int words = 0;
 	char c; // variable for each character pulled from the file
 	rfile = fopen(argv[3], "r"); //opens the file under the name given by the 3rd argument
-	//copies the text in the file with no spaces
-	while ((c = getc(rfile)) != EOF) //while not at the end of the file get each character
+	if (rfile)
 	{
-		fscanf(rfile, "%s", buffer); 
-		if (!isspace(c) || c != '\t') //if the character isn't a space or /t, increment the word count
-			words++;
+		//copies the text in the file with no spaces
+		while ((c = getc(rfile)) != EOF) //while not at the end of the file get each character
+		{
+			fscanf(rfile, "%s", buffer);
+			if (!isspace(c) || c != '\t') //if the character isn't a space or /t, increment the word count
+				words++;
+		}
+		write(network_socket, &words, sizeof(int)); //send the number of words to the server
+		rewind(rfile);//sets the file position back to the beginning of the file
+		char check;
+		while (check != EOF) //while check is not a EOF character
+		{
+			fscanf(rfile, "%s", buffer); //read in each character
+			write(network_socket, buffer, 255); //send the character to the server socket
+			check = fgetc(rfile); //retrieves the next character
+		}
+		//end of new code
+		printf("The server successfully sent the data\n", server_response); //lets the user know the data was sent
 	}
-	write(network_socket, &words, sizeof(int)); //send the number of words to the server
-	rewind(rfile);//sets the file position back to the beginning of the file
-	char check;
-	while (check != EOF) //while check is not a EOF character
-	{
-		fscanf(rfile, "%s", buffer); //read in each character
-		write(network_socket, buffer, 255); //send the character to the server socket
-		check = fgetc(rfile); //retrieves the next character
+	else {
+		printf("The file does not exist or cannot be accessed\n");
 	}
-	//end of new code
-	printf("The server successfully sent the data\n", server_response); //lets the user know the data was sent
-
 	close(network_socket); //close the socket
 	return 0;
 }
