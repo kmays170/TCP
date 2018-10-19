@@ -5,23 +5,10 @@ Application Architecture:
 Message types:  
 	My message type is request/response.
 Message syntax: 
-•	The format of the messages
-  o	The message syntax that I used is that each message contains one or more ASCII characters  
-•	The meaning of each field in the format
-  o	For the client, with the format <client> <server IP> <server port> <file path> <to format> <to name>:
-    	 <client> is the name of the client file name with the path (i.e ./tcp_client)
-    	<server IP> is the IP address of the server (i.e 127.0.0.1)
-    	<server port> is the TCP port of the server (i.e 9002)
-    	<file path> is the path of the file to be sent from the server, or just the name if the file is in the same directory (i.e practice.txt)
-    	<to_format> tells the server how to translate the file
-    	<to name> tells the server what file to write the translation to
-  o	For the server, with the format <server> <port>:
-    	<server> is the name of the server file name with the path (i.e ./tcp_server)
-    	<port> is the port the server is listening to
-•	The value range of each field
-  o	For my char values, I used an array size of 255
-•	Why/how do we distinguish between multiple messages? 
-  o	For this assignment, I focused on setting up the client/server code with only one message being passed
+•The format of the messages: The message syntax that I used is that each message contains one or more ASCII characters  
+•The meaning of each field in the format: For the client, with the format <client> <server IP> <server port> <file path> <to format> <to name>,<client> is the name of the client file name with the path (i.e ./tcp_client), <server IP> is the IP address of the server (i.e 127.0.0.1), <server port> is the TCP port of the server (i.e 9002), <file path> is the path of the file to be sent from the server, or just the name if the file is in the same directory (i.e practice.txt),<to_format> tells the server how to translate the file (i.e 1),<to name> tells the server what file to write the translation to (i.e rec.txt). For the server, with the format <server> <port>:<server> is the name of the server file name with the path (i.e ./tcp_server), and <port> is the port the server is listening to (i.e 9002)
+•The value range of each field: For my char values, I used an array size of 255
+•Why/how do we distinguish between multiple messages?: For this assignment, I focused on setting up the client/server code with only one message being passed
 Processing rules:
  	The request is sent by the client, the response is sent by server. The server code must be run before the client code is run, otherwise an error message will be printed to the screen.
 
