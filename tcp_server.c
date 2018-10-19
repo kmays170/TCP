@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-
+#include <string.h>
 #include <netinet/in.h>
 #include <unistd.h>
 
@@ -27,7 +27,7 @@ int Dec_to_Binary(int arg)
 	binary = (int)binary_string; // cast the binar char array as an integer
 	return binary;
 }
-int main(){
+int main(int argc, char *argv[]){
 	/*
 	argv[1] = port server is listening to
 	*/

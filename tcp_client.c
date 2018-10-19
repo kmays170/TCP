@@ -57,7 +57,7 @@ int main(int argc, char *argv[]){
 			check = fgetc(rfile); //retrieves the next character
 		}
 		//end of new code
-		printf("The server successfully sent the data\n", server_response); //lets the user know the data was sent
+		printf("The client successfully sent the data\n"); //lets the user know the data was sent
 	}
 	else {
 		printf("The file does not exist or cannot be accessed\n");
